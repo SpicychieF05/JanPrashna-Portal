@@ -2,6 +2,7 @@
 
 The **JanPrashna Portal** is an AI-powered Citizen Question Intelligence Platform built for the Government of West Bengal. It enables citizens to submit questions and grievances, while providing government officials with an AI-driven dashboard to analyze trends, generate reports, and cluster related queries.
 
+
 ## Architecture
 
 This project is built using a modern **Monorepo Architecture** powered by Turborepo:
