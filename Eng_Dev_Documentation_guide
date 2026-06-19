@@ -1,0 +1,328 @@
+# ENGINEERING DEVELOPMENT GUIDE
+
+**Project:** JanPrashna Portal
+
+**Version:** 1.0
+
+---
+
+# 1. Purpose
+
+This document defines the engineering standards, coding conventions, architecture rules, and AI development workflow for JanPrashna Portal.
+
+Every contributor (human or AI) must follow this guide.
+
+---
+
+# 2. Development Principles
+
+* Follow the existing architecture.
+* Never rewrite completed modules unnecessarily.
+* Build reusable components.
+* Keep business logic out of UI components.
+* Prefer composition over duplication.
+* Maintain accessibility (WCAG AA).
+* Optimize for readability and maintainability.
+
+---
+
+# 3. Project Structure
+
+Monorepo
+
+apps/
+
+* citizen-portal
+* admin-dashboard
+* backend-api
+
+packages/
+
+* ui
+* types
+* utils
+* validators
+* constants
+* hooks
+* ai
+
+---
+
+# 4. Technology Standards
+
+Citizen Portal
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* shadcn/ui
+
+Admin Dashboard
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* Recharts
+
+Backend
+
+* FastAPI
+* SQLAlchemy
+* Alembic
+* PostgreSQL
+* Redis
+* Celery
+* Qdrant
+
+---
+
+# 5. Coding Standards
+
+## TypeScript
+
+* Strict Mode enabled
+* No `any`
+* Prefer interfaces for shared models
+* Export types from shared packages
+
+## Python
+
+* Type hints required
+* PEP 8 compliant
+* Separate routers, services, repositories, and schemas
+* Business logic must not live in API routes
+
+---
+
+# 6. Naming Conventions
+
+Folders
+
+kebab-case
+
+Files
+
+kebab-case
+
+Components
+
+PascalCase
+
+Variables
+
+camelCase
+
+Constants
+
+UPPER_SNAKE_CASE
+
+Database
+
+snake_case
+
+API Routes
+
+kebab-case
+
+---
+
+# 7. Component Rules
+
+Each reusable component should include:
+
+* Loading state
+* Empty state
+* Error state
+* Responsive layout
+* Accessibility labels
+* Keyboard support
+
+---
+
+# 8. Git Workflow
+
+Branch Naming
+
+feature/<feature-name>
+
+bugfix/<issue-name>
+
+hotfix/<issue-name>
+
+Commit Format
+
+feat:
+
+fix:
+
+refactor:
+
+docs:
+
+test:
+
+chore:
+
+Example
+
+feat: add citizen question submission wizard
+
+---
+
+# 9. Environment Variables
+
+Never hardcode:
+
+* API URLs
+* Database URLs
+* Secrets
+* Tokens
+* Keys
+
+Always use environment variables.
+
+---
+
+# 10. Error Handling
+
+Frontend
+
+* Friendly error messages
+* Retry options where appropriate
+
+Backend
+
+* Standard API response envelope
+* Log errors with Request ID
+* Never expose internal stack traces
+
+---
+
+# 11. Logging
+
+Log
+
+* API requests
+* AI jobs
+* Authentication
+* Report generation
+* Email delivery
+
+Do not log:
+
+* Passwords
+* Secrets
+* JWT tokens
+* API keys
+
+---
+
+# 12. Security Standards
+
+* HTTPS only
+* JWT for protected APIs
+* RBAC authorization
+* Input validation
+* ORM only (no raw SQL unless justified)
+* Soft delete for citizen data
+* Audit logging for admin actions
+
+---
+
+# 13. Performance Standards
+
+Frontend
+
+* Lighthouse ≥95
+* Lazy loading
+* Code splitting
+* Image optimization
+
+Backend
+
+* Async endpoints where appropriate
+* Database indexing
+* Redis caching
+* Background jobs for long-running tasks
+
+---
+
+# 14. Testing Standards
+
+Frontend
+
+* Component tests
+* Accessibility checks
+
+Backend
+
+* Unit tests
+* API tests
+* Integration tests
+
+End-to-End
+
+* Citizen submission
+* AI processing
+* Report generation
+* Email scheduling
+
+---
+
+# 15. Documentation Rules
+
+Every new feature must include:
+
+* Updated API documentation
+* Database migration (if required)
+* README updates (if applicable)
+* Inline comments only where necessary
+
+---
+
+# 16. AI Development Rules
+
+AI assistants must:
+
+* Read all project documents before coding.
+* Never invent features not present in the documentation.
+* Never modify architecture without approval.
+* Reuse existing components before creating new ones.
+* Generate production-ready, typed, maintainable code.
+* Follow existing folder structure.
+* Respect design tokens and UI system.
+* Keep commits focused on one feature at a time.
+
+---
+
+# 17. Definition of Done
+
+A task is complete only when:
+
+* Feature implemented
+* Tests passing
+* Responsive
+* Accessible
+* Secure
+* No lint errors
+* No type errors
+* Documentation updated
+* Code reviewed
+
+---
+
+# 18. Project Documentation Hierarchy
+
+1. PRD
+2. UI/UX FSD
+3. Technical Architecture
+4. Database Design
+5. API Specification
+6. Security & Access Architecture
+7. AI Architecture
+8. Feature Task List
+9. Engineering Development Guide
+
+These documents collectively define the complete implementation of JanPrashna Portal.

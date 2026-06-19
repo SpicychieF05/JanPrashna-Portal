@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 38 43% 97%; /* #FDFAF5 */
+    --foreground: 32 18% 9%; /* #1A1208 */
+    
+    --paper: 38 46% 93%; /* #F7F0E4 */
+    
+    --card: 0 0% 100%;
+    --card-foreground: 32 18% 9%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 32 18% 9%;
+    
+    --primary: 24 93% 47%; /* #E8620A Saffron */
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 38 46% 93%; /* Paper Warm */
+    --secondary-foreground: 32 18% 9%;
+    
+    --muted: 26 17% 41%; /* #796556 */
+    --muted-foreground: 26 17% 41%;
+    
+    --accent: 24 93% 47%; /* Saffron */
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 72% 51%; /* #DC2626 */
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 76% 36%; /* #16A34A */
+    --warning: 38 92% 44%; /* #D97706 */
+    --info: 221 83% 53%; /* #2563EB */
+    
+    --border: 38 20% 85%;
+    --input: 38 20% 85%;
+    --ring: 24 93% 47%;
+    
+    --radius: 0.75rem; /* Large rounded corners as per FSD */
+
+    --saffron: 24 93% 47%;
+    --saffron-foreground: 0 0% 100%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}

@@ -1,0 +1,792 @@
+TECHNICAL ARCHITECTURE DOCUMENT
+JanPrashna Portal
+AI-Powered Citizen Question Intelligence Platform
+
+Version: 1.0
+
+Status: Draft
+
+Architecture Type: Enterprise Monorepo
+
+Target Scale:
+
+5+ Million Citizens
+200,000+ Questions/day
+10,000+ Concurrent Users
+Government Grade Availability (99.9%)
+Table of Contents
+System Overview
+Architecture Principles
+Technology Stack
+High-Level System Architecture
+Monorepo Architecture
+Folder Structure
+Shared Packages
+Data Flow
+AI Processing Flow
+Deployment Strategy
+Scalability Goals
+1. System Overview
+Purpose
+
+JanPrashna Portal is an AI-powered citizen intelligence platform that enables residents of West Bengal to submit governance-related questions.
+
+Instead of acting as a grievance portal, the platform aggregates, analyzes, clusters, and summarizes citizen questions into structured reports for government officials.
+
+The platform is composed of three independent applications:
+
+Citizen Portal
+Admin Dashboard
+Backend API
+
+These applications share reusable libraries through a centralized monorepo architecture.
+
+2. Architecture Principles
+2.1 Scalability
+
+The system should support millions of submissions without requiring architectural redesign.
+
+Scaling should be horizontal wherever possible.
+
+2.2 Separation of Concerns
+
+Citizen website
+
+↓
+
+Backend API
+
+↓
+
+AI Workers
+
+↓
+
+Database
+
+↓
+
+Admin Dashboard
+
+Every layer has a single responsibility.
+
+2.3 AI First
+
+AI processing should never block user requests.
+
+Every submission enters an asynchronous processing queue.
+
+2.4 Shared Code
+
+The citizen portal and admin dashboard should never duplicate:
+
+UI Components
+Types
+Validation
+Constants
+Utilities
+
+Everything reusable lives inside shared packages.
+
+2.5 Security by Design
+
+Every layer should follow Zero Trust Architecture.
+
+No service trusts another service without authentication.
+
+3. Technology Stack
+Frontend
+Framework
+
+Next.js 15 (App Router)
+
+Reason
+
+SEO
+Server Components
+Streaming
+Excellent performance
+Enterprise support
+Large ecosystem
+UI Library
+
+React 19
+
+Reason
+
+Component-driven architecture
+
+Reusable
+
+Massive ecosystem
+
+Language
+
+TypeScript
+
+Reason
+
+Strong typing
+Shared types
+Better maintainability
+AI-generated code reliability
+Styling
+
+Tailwind CSS
+
+Reason
+
+Utility-first
+Consistent spacing
+Fast development
+Responsive by default
+Components
+
+shadcn/ui
+
+Reason
+
+Accessible
+Beautiful
+Customizable
+Production ready
+Forms
+
+React Hook Form
+
+Zod
+
+Reason
+
+Fast
+Type-safe
+Shared validation
+Charts
+
+Recharts
+
+Reason
+
+Government dashboard
+
+Lightweight
+
+Responsive
+
+Icons
+
+Lucide React
+
+Reason
+
+Clean
+
+Open Source
+
+Consistent
+
+Backend
+
+Framework
+
+FastAPI
+
+Reason
+
+Python-native AI ecosystem
+
+Async
+
+Excellent performance
+
+Automatic OpenAPI docs
+
+Type-safe
+
+ORM
+
+SQLAlchemy
+
+Reason
+
+Enterprise-grade
+
+Stable
+
+Flexible
+
+Database Migration
+
+Alembic
+
+Reason
+
+Version-controlled database schema
+
+Background Tasks
+
+Celery
+
+Reason
+
+AI Processing
+
+Email Scheduling
+
+Report Generation
+
+Cleanup Jobs
+
+Queue
+
+Redis
+
+Reason
+
+Fast
+
+Reliable
+
+Industry standard
+
+Authentication
+
+JWT
+
+Refresh Tokens
+
+Reason
+
+Stateless
+
+Scalable
+
+AI Stack
+
+LLM
+
+OpenAI GPT
+
+Gemini
+
+OpenRouter (Fallback)
+
+Embedding Model
+
+text-embedding-3-large
+
+or
+
+BGE-M3 (Self-hosted later)
+
+Vector Database
+
+Qdrant
+
+Reason
+
+Semantic Search
+
+Question Similarity
+
+Fast clustering
+
+Database
+
+PostgreSQL
+
+Reason
+
+ACID
+
+Reliable
+
+Analytics
+
+JSON Support
+
+Full-text Search
+
+Storage
+
+Cloudflare R2
+
+Reason
+
+Cheap
+
+Scalable
+
+Future report storage
+
+Email
+
+Resend
+
+Reason
+
+Reliable
+
+Simple API
+
+Excellent deliverability
+
+Monitoring
+
+Prometheus
+
+Grafana
+
+Loki
+
+Sentry
+
+Containerization
+
+Docker
+
+Docker Compose
+
+Reverse Proxy
+
+Nginx
+
+CI/CD
+
+GitHub Actions
+
+4. High-Level System Architecture
+                 Citizens
+                     │
+          ┌──────────▼──────────┐
+          │ Citizen Portal      │
+          │ Next.js             │
+          └──────────┬──────────┘
+                     │ HTTPS
+                     ▼
+          ┌─────────────────────┐
+          │ FastAPI Backend API │
+          └───────┬───────┬─────┘
+                  │       │
+                  │       │
+          PostgreSQL   Redis Queue
+                  │       │
+                  │       ▼
+                  │  Celery Workers
+                  │       │
+                  ▼       ▼
+             Qdrant Vector DB
+                  │
+                  ▼
+           AI Processing Layer
+                  │
+                  ▼
+          AI Generated Reports
+                  │
+                  ▼
+        Admin Dashboard (Next.js)
+                  │
+                  ▼
+             Scheduled Emails
+5. Monorepo Architecture
+janprashna-portal/
+│
+├── apps/
+│
+│   ├── citizen-portal/
+│   │
+│   ├── admin-dashboard/
+│   │
+│   └── backend-api/
+│
+├── packages/
+│
+│   ├── ui/
+│   ├── types/
+│   ├── config/
+│   ├── constants/
+│   ├── validators/
+│   ├── hooks/
+│   ├── utils/
+│   ├── ai/
+│   └── analytics/
+│
+├── infrastructure/
+│
+│   ├── nginx/
+│   ├── docker/
+│   ├── monitoring/
+│   ├── scripts/
+│   └── terraform/
+│
+├── docs/
+│
+├── .github/
+│
+├── package.json
+├── turbo.json
+├── docker-compose.yml
+└── README.md
+6. Applications
+Citizen Portal
+apps/citizen-portal/
+
+app/
+
+components/
+
+features/
+
+hooks/
+
+services/
+
+lib/
+
+styles/
+
+public/
+
+types/
+
+middleware.ts
+
+Responsible for:
+
+Landing Page
+About
+FAQ
+Submit Question
+Privacy
+Success Page
+
+No admin functionality.
+
+Admin Dashboard
+apps/admin-dashboard/
+
+app/
+
+components/
+
+charts/
+
+dashboard/
+
+reports/
+
+users/
+
+settings/
+
+analytics/
+
+hooks/
+
+services/
+
+middleware.ts
+
+Responsible for:
+
+Analytics
+Reports
+Email Scheduler
+User Management
+AI Dashboard
+Settings
+Backend API
+apps/backend-api/
+
+app/
+
+api/
+
+core/
+
+models/
+
+schemas/
+
+services/
+
+repositories/
+
+workers/
+
+jobs/
+
+middlewares/
+
+security/
+
+database/
+
+utils/
+
+tests/
+
+Responsible for:
+
+APIs
+Authentication
+AI Processing
+Email
+Reports
+Scheduler
+Database
+7. Shared Packages
+UI
+
+Reusable components
+
+Button
+
+Card
+
+Table
+
+Input
+
+Modal
+
+Chart
+
+Badge
+
+Sidebar
+
+Navbar
+
+Wizard
+
+Pagination
+
+Alert
+
+Toast
+Types
+
+Shared TypeScript interfaces.
+
+Citizen
+
+Question
+
+Report
+
+Department
+
+District
+
+User
+
+Email Schedule
+
+etc.
+
+Validators
+
+Zod schemas shared between frontend and backend.
+
+AI
+
+Prompt templates
+
+Embedding utilities
+
+Clustering helpers
+
+AI adapters
+
+Utils
+
+Date
+
+Formatting
+
+Filtering
+
+Pagination
+
+Export
+
+Encryption
+
+8. Data Flow
+Citizen
+
+↓
+
+Question Form
+
+↓
+
+Backend Validation
+
+↓
+
+PostgreSQL
+
+↓
+
+Redis Queue
+
+↓
+
+AI Worker
+
+↓
+
+Embedding Generation
+
+↓
+
+Vector Search
+
+↓
+
+Question Cluster
+
+↓
+
+AI Summary
+
+↓
+
+Dashboard
+
+↓
+
+Scheduled Report
+
+↓
+
+Email Delivery
+9. AI Processing Flow
+Raw Question
+
+↓
+
+Language Detection
+
+↓
+
+Translation (if required)
+
+↓
+
+Grammar Normalization
+
+↓
+
+Named Entity Recognition
+
+↓
+
+Department Detection
+
+↓
+
+Scheme Detection
+
+↓
+
+Embedding Generation
+
+↓
+
+Qdrant Similarity Search
+
+↓
+
+Cluster Assignment
+
+↓
+
+Canonical Question Generation
+
+↓
+
+Frequency Calculation
+
+↓
+
+Trend Analysis
+
+↓
+
+Executive Summary
+
+↓
+
+Dashboard
+10. Deployment Strategy
+
+Development
+
+Docker Compose
+
+↓
+
+Testing
+
+GitHub Actions
+
+↓
+
+Staging
+
+Docker + Nginx
+
+↓
+
+Production
+
+Load Balancer
+
+↓
+
+Nginx
+
+↓
+
+Citizen Portal
+
+↓
+
+Backend API
+
+↓
+
+Redis
+
+↓
+
+PostgreSQL
+
+↓
+
+Celery
+
+↓
+
+Qdrant
+
+↓
+
+Monitoring
+
+11. Scalability Goals
+Metric	Target
+Concurrent Users	10,000+
+Daily Questions	200,000+
+Annual Questions	70+ Million
+AI Processing Time	< 10 seconds (async)
+Dashboard Load Time	< 3 seconds
+API Response Time	< 500 ms
+Report Generation	< 60 seconds
+Availability	99.9%
+Horizontal Scaling	Supported
+Multi-State Expansion	Supported
+

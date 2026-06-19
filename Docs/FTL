@@ -1,0 +1,500 @@
+# FEATURE TASK LIST (FTL)
+
+**Project:** JanPrashna Portal
+
+**Version:** 1.0
+
+**Development Methodology:** Agile Scrum
+
+**Architecture:** Monorepo
+
+---
+
+# Development Phases
+
+| Phase   | Status             |
+| ------- | ------------------ |
+| Phase 1 | Project Foundation |
+| Phase 2 | Citizen Portal     |
+| Phase 3 | Admin Dashboard    |
+| Phase 4 | Backend API        |
+| Phase 5 | AI Engine          |
+| Phase 6 | Reports & Email    |
+| Phase 7 | Security           |
+| Phase 8 | Testing            |
+| Phase 9 | Deployment         |
+
+---
+
+# PHASE 1 — PROJECT FOUNDATION
+
+## Epic 1.1 Monorepo Setup
+
+* Create Turborepo workspace
+* Configure apps/
+* Configure packages/
+* Configure shared TypeScript
+* Configure ESLint
+* Configure Prettier
+* Configure Husky
+* Configure GitHub Actions
+* Configure Docker
+
+---
+
+## Epic 1.2 Shared Packages
+
+* UI Components
+* Types
+* Constants
+* Validators
+* Utilities
+* Hooks
+* AI Helpers
+
+---
+
+## Epic 1.3 Design System
+
+* Colors
+* Typography
+* Buttons
+* Forms
+* Cards
+* Tables
+* Charts
+* Icons
+
+---
+
+# PHASE 2 — CITIZEN PORTAL
+
+## Epic 2.1 Landing Page
+
+* Hero Section
+* About
+* Features
+* How It Works
+* FAQ
+* Footer
+* Responsive Design
+
+---
+
+## Epic 2.2 Question Submission
+
+* Multi-step Form
+* Form Validation
+* Dynamic Location Fields
+* Question Input
+* Review Screen
+* Success Screen
+
+---
+
+## Epic 2.3 Static Pages
+
+* About
+* FAQ
+* Privacy Policy
+* Terms & Conditions
+* Contact
+
+---
+
+## Epic 2.4 UX Enhancements
+
+* Loading States
+* Skeleton Loaders
+* Empty States
+* Error States
+* Success States
+
+---
+
+# PHASE 3 — ADMIN DASHBOARD
+
+## Epic 3.1 Authentication
+
+* Login
+* Logout
+* Token Refresh
+* Route Protection
+
+---
+
+## Epic 3.2 Dashboard
+
+* KPI Cards
+* Charts
+* Recent Activity
+* Processing Queue
+* AI Summary
+
+---
+
+## Epic 3.3 Question Management
+
+* Question List
+* Filters
+* Search
+* View Details
+* Soft Delete
+
+---
+
+## Epic 3.4 AI Management
+
+* Cluster List
+* Cluster Details
+* Merge Clusters
+* Split Clusters
+* Reprocess Question
+
+---
+
+## Epic 3.5 Reports
+
+* Report List
+* Generate Report
+* Download PDF
+* Download Excel
+* Report Details
+
+---
+
+## Epic 3.6 Email Scheduler
+
+* Recipient Management
+* Schedule Management
+* Frequency Settings
+* Delivery Logs
+
+---
+
+## Epic 3.7 User Management
+
+* User List
+* Create User
+* Edit User
+* Disable User
+* Role Assignment
+
+---
+
+## Epic 3.8 Settings
+
+* General Settings
+* AI Settings
+* Email Settings
+* System Configuration
+
+---
+
+## Epic 3.9 Audit Logs
+
+* View Logs
+* Filter Logs
+* Export Logs
+
+---
+
+# PHASE 4 — BACKEND API
+
+## Epic 4.1 Authentication
+
+* JWT
+* Refresh Token
+* Password Hashing
+* Middleware
+
+---
+
+## Epic 4.2 Master Data APIs
+
+* Districts
+* Subdivisions
+* Blocks
+* Panchayats
+* Municipalities
+* Wards
+* Police Stations
+
+---
+
+## Epic 4.3 Question APIs
+
+* Submit Question
+* Get Questions
+* Get Question Details
+* Delete Question
+
+---
+
+## Epic 4.4 Dashboard APIs
+
+* Dashboard Summary
+* Charts
+* Analytics
+* Trends
+
+---
+
+## Epic 4.5 Report APIs
+
+* Generate
+* Download
+* History
+
+---
+
+## Epic 4.6 Email APIs
+
+* Recipients
+* Schedules
+* Delivery Logs
+
+---
+
+# PHASE 5 — AI ENGINE
+
+## Epic 5.1 Language Processing
+
+* Language Detection
+* Translation
+* Text Normalization
+
+---
+
+## Epic 5.2 AI Processing
+
+* Embedding Generation
+* Vector Search
+* Similarity Matching
+* Question Clustering
+
+---
+
+## Epic 5.3 Classification
+
+* Department Detection
+* Scheme Detection
+* Tag Generation
+
+---
+
+## Epic 5.4 Intelligence
+
+* Canonical Questions
+* Trend Analysis
+* Executive Summary
+
+---
+
+## Epic 5.5 Queue System
+
+* Redis Queue
+* Celery Workers
+* Retry Logic
+* Monitoring
+
+---
+
+# PHASE 6 — REPORTING
+
+## Epic 6.1 Report Engine
+
+* Weekly Reports
+* Monthly Reports
+* Quarterly Reports
+* Custom Reports
+
+---
+
+## Epic 6.2 Export
+
+* PDF Export
+* Excel Export
+
+---
+
+## Epic 6.3 Email Automation
+
+* Scheduler
+* Delivery
+* Retry
+* Logs
+
+---
+
+# PHASE 7 — SECURITY
+
+## Epic 7.1 Authentication Security
+
+* JWT Validation
+* Session Management
+* Logout
+
+---
+
+## Epic 7.2 API Security
+
+* Rate Limiting
+* Validation
+* CORS
+* Security Headers
+
+---
+
+## Epic 7.3 Audit
+
+* Audit Logs
+* Error Logs
+* Activity Tracking
+
+---
+
+## Epic 7.4 Data Lifecycle
+
+* 90-Day Cleanup Job
+* Backup
+* Restore Testing
+
+---
+
+# PHASE 8 — TESTING
+
+## Epic 8.1 Unit Testing
+
+* Frontend
+* Backend
+* AI Services
+
+---
+
+## Epic 8.2 Integration Testing
+
+* API Testing
+* Database Testing
+* Queue Testing
+
+---
+
+## Epic 8.3 End-to-End Testing
+
+* Citizen Submission Flow
+* Admin Dashboard Flow
+* Report Generation
+* Email Scheduler
+
+---
+
+## Epic 8.4 Performance Testing
+
+* Load Testing
+* Stress Testing
+* AI Queue Testing
+
+---
+
+# PHASE 9 — DEPLOYMENT
+
+## Epic 9.1 Infrastructure
+
+* Vercel Deployment (Citizen Portal)
+* Vercel Deployment (Admin Dashboard)
+* Railway Deployment (Backend)
+* Neon PostgreSQL
+* Upstash Redis
+* Qdrant
+
+---
+
+## Epic 9.2 CI/CD
+
+* GitHub Actions
+* Build Pipeline
+* Automated Tests
+* Deployment Pipeline
+
+---
+
+## Epic 9.3 Monitoring
+
+* Sentry
+* Grafana
+* Prometheus
+* Loki
+
+---
+
+# MVP CHECKLIST
+
+## Must Have
+
+✓ Landing Page
+
+✓ Citizen Question Submission
+
+✓ Admin Login
+
+✓ Dashboard Overview
+
+✓ AI Question Clustering
+
+✓ Canonical Questions
+
+✓ Weekly Report Generation
+
+✓ Email Scheduler
+
+✓ Audit Logs
+
+✓ Security
+
+---
+
+## Nice to Have (Post MVP)
+
+* Public Analytics Dashboard
+* Hindi Support
+* AI FAQ Generation
+* Mobile App
+* GIS Heatmaps
+* Sentiment Analysis
+* Predictive Trends
+* Voice Question Support
+
+---
+
+# Definition of Done (DoD)
+
+A feature is considered complete when:
+
+* Functional requirements are implemented
+* UI matches the design system
+* Backend APIs are integrated
+* Validation is complete
+* Unit tests pass
+* Accessibility requirements are met
+* Responsive design is verified
+* Security checks pass
+* Code is reviewed
+* Documentation is updated
+
+---
+
+# Suggested Development Order
+
+1. Project Foundation
+2. Design System
+3. Citizen Portal
+4. Backend APIs
+5. Authentication
+6. Admin Dashboard
+7. AI Processing
+8. Reports
+9. Email Scheduler
+10. Security
+11. Testing
+12. Production Deployment

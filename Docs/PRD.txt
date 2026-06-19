@@ -1,0 +1,713 @@
+# Product Requirements Document (PRD)
+
+# AI-Powered Citizen Question Intelligence Platform for West Bengal
+
+**Version:** 1.0 (MVP)
+
+**Document Owner:** Product Team
+
+**Status:** Draft
+
+---
+
+# 1. Product Overview
+
+## Vision
+
+Build an AI-powered civic intelligence platform that enables residents of West Bengal to submit questions regarding public services, government schemes, infrastructure, healthcare, education, employment, and other governance-related topics. Instead of functioning as a grievance redressal portal, the platform collects citizen questions, applies Artificial Intelligence to identify recurring themes and trends, and generates structured reports for government officials.
+
+The platform transforms thousands of unstructured citizen questions into concise, actionable intelligence that helps policymakers understand what information citizens need the most.
+
+---
+
+# 2. Problem Statement
+
+Government departments receive thousands of questions from citizens through multiple channels such as social media, local offices, public meetings, emails, and helplines.
+
+These questions are:
+
+* Scattered across multiple channels
+* Difficult to analyze at scale
+* Repetitive
+* Written in multiple languages
+* Often expressed using informal regional dialects
+* Time-consuming to manually review
+
+As a result:
+
+* Officials cannot easily identify the most common citizen concerns.
+* Communication gaps remain unresolved.
+* Frequently asked questions remain unanswered publicly.
+* Decision-makers lack statewide visibility into emerging public information needs.
+
+---
+
+# 3. Proposed Solution
+
+The platform provides a centralized portal where any resident of West Bengal can submit governance-related questions.
+
+Instead of manually reviewing every submission, an AI engine:
+
+* Detects language
+* Understands regional Bengali writing styles
+* Groups similar questions
+* Removes duplicates
+* Identifies frequently asked topics
+* Detects trends
+* Generates executive summaries
+* Produces scheduled reports for government officials
+
+The platform focuses solely on **question intelligence** and does not replace existing grievance or complaint portals.
+
+---
+
+# 4. Target Users
+
+## Primary Users
+
+### Citizens of West Bengal
+
+Residents seeking information regarding:
+
+* Government schemes
+* Infrastructure
+* Public services
+* Education
+* Healthcare
+* Employment
+* Law & Order
+* Transport
+* Local administration
+
+---
+
+### Government Officials
+
+Officials responsible for:
+
+* Public communication
+* Citizen engagement
+* Policy monitoring
+* Department administration
+* Data-driven decision making
+
+---
+
+### Department Administrators
+
+Authorized personnel responsible for:
+
+* Reviewing AI-generated reports
+* Managing email subscriptions
+* Monitoring platform analytics
+* Configuring report schedules
+
+---
+
+# 5. Goals
+
+## Business Goals
+
+* Create a centralized citizen question repository.
+* Reduce manual effort required to analyze public questions.
+* Help government identify information gaps.
+* Improve transparency through data-driven insights.
+* Build a scalable AI-powered civic intelligence system.
+
+---
+
+## User Goals
+
+Citizens should be able to:
+
+* Submit questions quickly.
+* Use Bengali or English.
+* Complete submission within two minutes.
+* Avoid mandatory account creation.
+
+Government officials should be able to:
+
+* View AI-generated summaries.
+* Identify emerging topics.
+* Download reports.
+* Receive automated reports via email.
+
+---
+
+# 6. Scope
+
+## Included in Version 1
+
+* Citizen question submission
+* Bengali & English support
+* AI-based question clustering
+* Question frequency analysis
+* Government scheme recognition
+* Department classification
+* Executive dashboard
+* Scheduled report generation
+* Email report delivery
+* AI-generated summaries
+* 90-day raw data retention
+
+---
+
+## Out of Scope
+
+* Complaint registration
+* Grievance tracking
+* Status updates
+* Image uploads
+* Audio uploads
+* Video uploads
+* Live chat
+* Citizen accounts
+* Public discussions
+* Public comments
+* Public voting
+* Complaint resolution workflow
+
+---
+
+# 7. User Personas
+
+## Persona 1
+
+### Rural Citizen
+
+Age: 52
+
+Language: Bengali
+
+Uses mobile phone
+
+Needs information regarding government schemes.
+
+Wants a simple interface.
+
+---
+
+## Persona 2
+
+### Urban Citizen
+
+Age: 26
+
+Language: English/Bengali
+
+Wants clarification regarding recruitment, transport, or public services.
+
+---
+
+## Persona 3
+
+### Government Officer
+
+Needs weekly AI-generated reports instead of reading thousands of submissions.
+
+---
+
+# 8. Citizen Submission Flow
+
+Landing Page
+
+↓
+
+Choose Language
+
+↓
+
+Read Platform Information
+
+↓
+
+Fill Personal & Location Details
+
+↓
+
+Enter Question
+
+↓
+
+Review Submission
+
+↓
+
+Submit
+
+↓
+
+Confirmation Screen
+
+---
+
+# 9. Data Collected
+
+## Personal Information
+
+* District
+* Rural / Urban
+* Age
+* Occupation
+* Gender (Optional)
+
+---
+
+## Rural Location
+
+* Subdivision
+* Block
+* Gram Panchayat
+* Police Station
+* Pincode
+
+---
+
+## Urban Location
+
+* Municipality / Municipal Corporation
+* Ward
+* Police Station
+* Pincode
+
+---
+
+## Question Information
+
+* Question
+* Language
+* Submission Date
+* Submission Time
+
+---
+
+# 10. Core Features
+
+## Must Have (MVP)
+
+### Citizen Portal
+
+* Responsive interface
+* Bengali & English support
+* Dynamic location form
+* Question submission
+* Consent checkbox
+* Submission confirmation
+
+---
+
+### AI Processing
+
+* Language detection
+* Translation (if required)
+* Grammar normalization
+* Dialect normalization
+* Duplicate detection
+* Semantic clustering
+* Canonical question generation
+* Department mapping
+* Government scheme detection
+* Frequency analysis
+* Trend detection
+
+---
+
+### Admin Dashboard
+
+* Dashboard overview
+* Question analytics
+* Search
+* Filter by district
+* Filter by department
+* Filter by date
+* AI summaries
+* Question clusters
+* Export reports
+
+---
+
+### Email Scheduler
+
+* Add official email
+* Remove email
+* Edit recipient
+* Schedule frequency
+
+Supported frequencies:
+
+* Every 7 Days
+* Every 10 Days
+* Monthly
+* Quarterly
+* Custom Interval
+
+Configure:
+
+* Start Date
+* Report Type
+* Enable/Disable
+
+---
+
+### Reports
+
+Generate:
+
+* PDF
+* Excel
+* Executive Summary
+
+---
+
+### Security
+
+* Admin Authentication
+* Role-Based Access
+* Audit Logs
+* Rate Limiting
+* Data Encryption
+* Automatic Data Deletion
+
+---
+
+# 11. Nice-to-Have Features
+
+* AI chatbot for administrators
+* Heatmap visualization
+* Trend prediction
+* Department-specific dashboards
+* Public statistics page
+* AI recommendation engine
+* API integrations
+* Mobile application
+* Offline data collection
+* GIS visualizations
+
+---
+
+# 12. AI Processing Pipeline
+
+Question Submitted
+
+↓
+
+Language Detection
+
+↓
+
+Translation
+
+↓
+
+Grammar Correction
+
+↓
+
+Regional Dialect Normalization
+
+↓
+
+Intent Recognition
+
+↓
+
+Scheme Detection
+
+↓
+
+Department Classification
+
+↓
+
+Embedding Generation
+
+↓
+
+Semantic Similarity
+
+↓
+
+Duplicate Detection
+
+↓
+
+Question Clustering
+
+↓
+
+Canonical Question Generation
+
+↓
+
+Trend Analysis
+
+↓
+
+Executive Summary
+
+↓
+
+Dashboard
+
+↓
+
+Scheduled Report
+
+---
+
+# 13. Dashboard Modules
+
+## Dashboard
+
+* Total Questions
+* Questions Today
+* Questions This Week
+* Active Districts
+* Language Distribution
+* Trending Topics
+
+---
+
+## Question Analytics
+
+* Search
+* Filters
+* Frequency
+* AI Clusters
+* Timeline
+* Department-wise Analysis
+* District-wise Analysis
+
+---
+
+## AI Reports
+
+* Generate Report
+* Download PDF
+* Download Excel
+* View Previous Reports
+
+---
+
+## Email Management
+
+* Recipient List
+* Frequency
+* Start Date
+* Status
+* Delivery Logs
+
+---
+
+## Settings
+
+* AI Configuration
+* Retention Policy
+* System Logs
+
+---
+
+# 14. MVP Definition
+
+The Minimum Viable Product includes:
+
+Citizen Side
+
+* Question submission
+* Bengali & English support
+* Dynamic location selection
+* Question confirmation
+
+AI
+
+* Language understanding
+* Clustering
+* Duplicate removal
+* Weekly summaries
+
+Admin
+
+* Login
+* Dashboard
+* Report generation
+* Email scheduling
+
+Infrastructure
+
+* Database
+* Authentication
+* Security
+* Automatic deletion
+
+---
+
+# 15. Success Metrics
+
+## Adoption Metrics
+
+* Total submissions
+* Daily active users
+* Questions per district
+* Rural vs Urban participation
+
+---
+
+## AI Metrics
+
+* Duplicate detection accuracy
+* Topic classification accuracy
+* Language detection accuracy
+* AI confidence score
+
+---
+
+## Operational Metrics
+
+* Average processing time
+* Dashboard load time
+* Email delivery success rate
+* Report generation time
+
+---
+
+## Product Metrics
+
+* Weekly reports generated
+* Active government departments
+* Number of subscribed officials
+* Question clustering efficiency
+
+---
+
+# 16. Non-Functional Requirements
+
+Availability
+
+99.9%
+
+---
+
+Performance
+
+Submission response < 2 seconds
+
+Dashboard < 3 seconds
+
+Report generation < 60 seconds
+
+---
+
+Scalability
+
+Support:
+
+* 5 Million+ Citizens
+* 200,000+ Questions per Day
+* Horizontal scaling
+
+---
+
+Security
+
+* HTTPS
+* Encryption at Rest
+* Encryption in Transit
+* RBAC
+* Audit Logs
+* Automatic Backup
+
+---
+
+Accessibility
+
+* Mobile-first
+* Responsive Design
+* Bengali Unicode Support
+* WCAG Compliance (Target AA)
+
+---
+
+# 17. Risks
+
+## Technical Risks
+
+* AI misclassification
+* Bengali dialect variations
+* Large-scale concurrent traffic
+* Email delivery failures
+
+---
+
+## Product Risks
+
+* Spam submissions
+* Duplicate questions
+* Misuse of the platform
+* Low initial adoption
+
+---
+
+## Mitigation
+
+* AI moderation
+* Rate limiting
+* Semantic deduplication
+* Scheduled monitoring
+* Human review for AI-generated summaries
+
+---
+
+# 18. Version 1 Exclusions
+
+The following features are intentionally excluded from Version 1:
+
+* Citizen login and accounts
+* OTP verification
+* Complaint tracking
+* Grievance resolution
+* File uploads
+* Audio submissions
+* Video submissions
+* Image submissions
+* Public commenting
+* Public voting
+* Social sharing
+* Notifications to citizens
+* Live chat support
+* Native Android/iOS applications
+* Multi-state support
+* Anonymous public dashboards
+* Integration with government grievance systems
+
+These features may be considered in future releases based on stakeholder feedback and adoption.
+
+---
+
+# 19. Future Roadmap
+
+## Version 2
+
+* Voice-based question submission
+* AI-powered multilingual expansion
+* Department-specific dashboards
+* Advanced analytics
+* Public transparency dashboard
+* GIS-based district heatmaps
+* AI trend forecasting
+
+---
+
+## Version 3
+
+* Multi-state deployment
+* Integration with official government systems
+* API platform for departments
+* Predictive governance analytics
+* AI policy insight engine
+* Mobile applications
+
+---
+
+# 20. Product Success Statement
+
+The success of this platform will not be measured by the number of questions collected alone, but by its ability to transform thousands of fragmented citizen questions into structured, multilingual, AI-generated intelligence that enables government officials to better understand public information needs, improve communication strategies, and make more informed governance decisions.

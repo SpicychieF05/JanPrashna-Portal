@@ -1,0 +1,649 @@
+DATABASE DESIGN DOCUMENT (DDD)
+JanPrashna Portal
+AI-Powered Citizen Question Intelligence Platform
+
+Version: 1.0
+
+Database: PostgreSQL 16+
+
+Architecture: Polyglot Persistence
+
+PostgreSQL (Transactional Data)
+Redis (Cache & Queue)
+Qdrant (Vector Search)
+Table of Contents
+Database Philosophy
+Database Architecture
+Naming Standards
+Data Lifecycle
+Entity Relationship Model
+Master Tables
+Core Tables
+AI Tables
+Reporting Tables
+Authentication Tables
+System Tables
+Index Strategy
+Constraints
+Partition Strategy
+Backup Strategy
+1. Database Philosophy
+
+The database is designed around four principles.
+
+1. Single Source of Truth
+
+Master data (Districts, Blocks, Police Stations, etc.) is stored only once.
+
+Questions reference master records instead of duplicating text.
+
+2. AI Ready
+
+Every question should be traceable through the complete AI lifecycle.
+
+Submission
+
+↓
+
+Translation
+
+↓
+
+Normalization
+
+↓
+
+Embedding
+
+↓
+
+Cluster
+
+↓
+
+Canonical Question
+
+↓
+
+Report
+
+3. Analytics Optimized
+
+The schema should support:
+
+Dashboard analytics
+District analytics
+Weekly reports
+Department reports
+Trend analysis
+
+without excessive joins.
+
+4. Soft Delete
+
+Citizen submissions remain for
+
+90 Days
+
+↓
+
+Automatic deletion
+
+↓
+
+Aggregated analytics remain permanently.
+
+2. Database Architecture
+                        PostgreSQL
+────────────────────────────────────────────────────
+
+Master Data
+
+Districts
+Blocks
+Municipalities
+Police Stations
+
+↓
+
+Citizen Questions
+
+↓
+
+AI Processing
+
+↓
+
+Reports
+
+↓
+
+Email Scheduler
+
+↓
+
+Audit Logs
+
+────────────────────────────────────────────────────
+
+Redis
+
+Sessions
+
+Queues
+
+Cache
+
+Rate Limiting
+
+────────────────────────────────────────────────────
+
+Qdrant
+
+Embeddings
+
+Similarity Search
+
+Question Clusters
+3. Naming Standards
+Tables
+
+Plural
+
+snake_case
+
+Example
+
+question_submissions
+
+master_districts
+
+weekly_reports
+
+Primary Key
+
+id
+
+UUID
+
+Foreign Keys
+
+district_id
+
+question_id
+
+report_id
+
+Timestamp Fields
+
+created_at
+
+updated_at
+
+deleted_at
+
+Boolean
+
+is_active
+
+is_deleted
+
+is_verified
+
+4. Data Lifecycle
+
+Citizen Submission
+
+↓
+
+Stored
+
+↓
+
+AI Processing
+
+↓
+
+Reports
+
+↓
+
+90 Days
+
+↓
+
+Automatic Deletion
+
+↓
+
+Statistics remain
+
+5. Entity Relationship Model
+master_districts
+        │
+        │
+master_subdivisions
+        │
+        │
+master_blocks
+        │
+        │
+master_gram_panchayats
+        │
+        │
+question_submissions
+        │
+        │
+question_embeddings
+        │
+        │
+question_clusters
+        │
+        │
+canonical_questions
+        │
+        │
+generated_reports
+6. MASTER TABLES
+
+These tables rarely change and are managed by administrators.
+
+6.1 master_districts
+
+Purpose
+
+Stores every district in West Bengal.
+
+Field	Type	Description
+id	UUID	Primary Key
+district_name	VARCHAR(100)	Official district name
+district_code	VARCHAR(10)	Government code
+is_active	BOOLEAN	Status
+created_at	TIMESTAMP	Created
+6.2 master_subdivisions
+Field	Type
+id	UUID
+district_id	UUID FK
+subdivision_name	VARCHAR(100)
+subdivision_code	VARCHAR(20)
+
+Relationship
+
+District
+
+↓
+
+Many Subdivisions
+
+6.3 master_blocks
+Field	Type
+id	UUID
+subdivision_id	UUID
+block_name	VARCHAR
+block_code	VARCHAR
+6.4 master_municipalities
+
+Urban areas.
+
+Field	Type
+id	UUID
+district_id	UUID
+municipality_name	VARCHAR
+6.5 master_gram_panchayats
+Field	Type
+id	UUID
+block_id	UUID
+gp_name	VARCHAR
+6.6 master_wards
+
+Urban wards.
+
+6.7 master_police_stations
+Field	Type
+id	UUID
+district_id	UUID
+police_station_name	VARCHAR
+6.8 master_pincodes
+Field	Type
+id	UUID
+pincode	VARCHAR(6)
+district_id	UUID
+6.9 master_departments
+
+Stores government departments.
+
+Example
+
+Food
+
+Health
+
+Education
+
+PWD
+
+Transport
+
+Police
+
+Employment
+
+etc.
+
+6.10 master_schemes
+
+Stores scheme names.
+
+Lakshmir Bhandar
+
+Annapurna
+
+Swasthya Sathi
+
+etc.
+
+AI maps questions here.
+
+7. CORE TABLES
+7.1 question_submissions
+
+This is the heart of the platform.
+
+Field	Type
+id	UUID
+district_id	UUID
+subdivision_id	UUID
+block_id	UUID
+municipality_id	UUID
+ward_id	UUID
+gram_panchayat_id	UUID
+police_station_id	UUID
+pincode_id	UUID
+rural_urban	ENUM
+age	SMALLINT
+occupation	VARCHAR
+gender	ENUM
+language	ENUM
+original_question	TEXT
+translated_question	TEXT
+normalized_question	TEXT
+ai_processing_status	ENUM
+submission_source	VARCHAR
+ip_hash	VARCHAR
+browser_fingerprint	VARCHAR
+created_at	TIMESTAMP
+deleted_at	TIMESTAMP
+
+Indexes
+
+created_at
+district_id
+language
+ai_processing_status
+Why store three versions?
+
+Original
+
+Citizen text
+
+↓
+
+Translated
+
+English
+
+↓
+
+Normalized
+
+AI cleaned version
+
+Never overwrite user input.
+
+7.2 question_tags
+
+AI generated tags.
+
+Examples
+
+Road
+
+Hospital
+
+Water
+
+Transport
+
+Recruitment
+
+7.3 question_department_mapping
+
+Many-to-many relationship.
+
+One question
+
+↓
+
+Multiple departments possible.
+
+7.4 question_scheme_mapping
+
+Links questions to detected schemes.
+
+8. AI TABLES
+8.1 question_embeddings
+
+Stores vector references.
+
+Field	Type
+id	UUID
+question_id	UUID
+embedding_provider	VARCHAR
+vector_id	VARCHAR
+created_at	TIMESTAMP
+
+The actual vectors stay in Qdrant; PostgreSQL stores only metadata and IDs.
+
+8.2 question_clusters
+
+AI groups similar questions.
+
+Field	Type
+id	UUID
+cluster_name	VARCHAR
+confidence	DECIMAL
+question_count	INTEGER
+department_id	UUID
+scheme_id	UUID
+trend	ENUM
+8.3 cluster_questions
+
+Many-to-many mapping.
+
+Cluster
+
+↓
+
+Questions
+
+8.4 canonical_questions
+
+AI generated representative question.
+
+Example
+
+"When will Annapurna Scheme payments be released?"
+
+instead of
+
+2,000 similar questions.
+
+8.5 ai_processing_logs
+
+Every AI step.
+
+Language Detection
+
+Translation
+
+Embedding
+
+Clustering
+
+Summary
+
+Errors
+
+Retries
+
+9. REPORT TABLES
+generated_reports
+Field	Type
+id	UUID
+report_name	VARCHAR
+report_type	ENUM
+period_start	DATE
+period_end	DATE
+generated_by	UUID
+ai_summary	TEXT
+pdf_path	VARCHAR
+excel_path	VARCHAR
+generated_at	TIMESTAMP
+report_clusters
+
+Stores which clusters belong to each report.
+
+report_departments
+
+Stores department-specific report slices.
+
+10. ADMIN TABLES
+admin_users
+Field	Type
+id	UUID
+name	VARCHAR
+email	VARCHAR
+password_hash	TEXT
+role_id	UUID
+last_login	TIMESTAMP
+is_active	BOOLEAN
+roles
+
+Super Admin
+
+Department Admin
+
+Viewer
+
+Auditor
+
+permissions
+
+Role-based permissions.
+
+11. EMAIL TABLES
+email_recipients
+
+Official recipients.
+
+Frequency
+
+Weekly
+
+Monthly
+
+Quarterly
+
+Custom
+
+email_delivery_logs
+
+Every sent email.
+
+Status
+
+Retries
+
+Failures
+
+Delivery time
+
+12. AUDIT TABLES
+audit_logs
+
+Every admin action.
+
+Login
+
+Delete
+
+Export
+
+Report
+
+Settings
+
+Everything.
+
+13. INDEX STRATEGY
+
+Indexes on:
+
+district_id
+department_id
+scheme_id
+created_at
+language
+ai_processing_status
+report_type
+
+Composite indexes:
+
+(district_id, created_at)
+
+(department_id, created_at)
+
+(language, created_at)
+
+(report_type, generated_at)
+
+GIN indexes:
+
+normalized_question (PostgreSQL full-text search)
+JSONB fields (if introduced later)
+14. PARTITION STRATEGY
+
+The question_submissions table will become the largest table.
+
+Partition by month based on created_at.
+
+Example:
+
+question_submissions_2026_01
+question_submissions_2026_02
+question_submissions_2026_03
+
+Benefits:
+
+Faster queries
+Faster retention cleanup
+Better maintenance
+15. DATA RETENTION POLICY
+Data	Retention
+Raw question submissions	90 days
+AI clusters	Permanent
+Canonical questions	Permanent
+Generated reports	Permanent
+Audit logs	7 years
+Email delivery logs	1 year
+AI processing logs	180 days
+Redis cache	24 hours
+Queue jobs	7 days
+16. Database Optimizations
+UUID primary keys throughout
+Foreign key constraints on all relationships
+Soft deletes for citizen data
+Monthly partitioning of submissions
+Read replicas supported for analytics
+Qdrant used for vectors instead of storing embeddings in PostgreSQL
+Redis used exclusively for ephemeral data (sessions, queues, cache)

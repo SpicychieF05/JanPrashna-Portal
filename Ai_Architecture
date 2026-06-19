@@ -1,0 +1,600 @@
+# AI ARCHITECTURE DOCUMENT
+
+**Project:** JanPrashna Portal
+
+**Version:** 1.0
+
+**AI Version:** v1
+
+**Primary Goal:** Transform thousands of multilingual citizen questions into structured, actionable intelligence for government officials.
+
+---
+
+# 1. AI Overview
+
+The AI Engine is the core intelligence layer of JanPrashna Portal.
+
+Its responsibility is **not to answer questions**.
+
+Instead, it:
+
+* Understands questions
+* Normalizes language
+* Detects duplicate questions
+* Identifies departments and schemes
+* Clusters similar questions
+* Generates representative (canonical) questions
+* Produces AI summaries
+* Generates reports for government officials
+
+---
+
+# 2. AI Processing Pipeline
+
+```text
+Citizen Question
+        │
+        ▼
+Language Detection
+        │
+        ▼
+Translation (if required)
+        │
+        ▼
+Text Normalization
+        │
+        ▼
+Moderation & Spam Check
+        │
+        ▼
+Embedding Generation
+        │
+        ▼
+Vector Similarity Search
+        │
+        ▼
+Question Clustering
+        │
+        ▼
+Department Detection
+        │
+        ▼
+Scheme Detection
+        │
+        ▼
+Canonical Question Generation
+        │
+        ▼
+Trend Analysis
+        │
+        ▼
+AI Executive Summary
+        │
+        ▼
+Reports & Dashboard
+```
+
+---
+
+# 3. AI Responsibilities
+
+The AI Engine must:
+
+✓ Detect Language
+
+✓ Understand Bengali
+
+✓ Understand English
+
+✓ Handle mixed Bengali-English writing
+
+✓ Correct spelling mistakes
+
+✓ Normalize informal writing
+
+✓ Detect duplicate questions
+
+✓ Cluster similar questions
+
+✓ Identify government departments
+
+✓ Detect scheme names
+
+✓ Rank question frequency
+
+✓ Generate summaries
+
+---
+
+# 4. AI Components
+
+## 1. Language Detection
+
+Supported Languages
+
+* Bengali
+* English
+
+Future
+
+* Hindi
+
+Output
+
+```text
+Language
+
+Confidence Score
+```
+
+---
+
+## 2. Translation
+
+Only if required.
+
+All processing occurs using normalized English internally.
+
+Original Bengali is always preserved.
+
+---
+
+## 3. Text Normalization
+
+Examples
+
+Input
+
+```text
+টাকা কবে পাবো?
+```
+
+Input
+
+```text
+টাকা কবে দিবে?
+```
+
+Input
+
+```text
+আবেদন করেছি এখনও টাকা পাইনি
+```
+
+Normalized
+
+```text
+When will I receive the scheme payment?
+```
+
+---
+
+## 4. Moderation Layer
+
+Reject
+
+* Abuse
+* Spam
+* Random text
+* HTML
+* SQL Injection
+* Prompt Injection
+* Repeated spam
+
+Flag
+
+* Sensitive content
+* Potential misinformation
+
+---
+
+## 5. Embedding Generation
+
+Purpose
+
+Convert normalized text into vectors.
+
+Provider
+
+OpenAI
+
+Future
+
+BGE-M3
+
+Output
+
+Embedding ID
+
+Stored in
+
+Qdrant
+
+---
+
+## 6. Vector Search
+
+Purpose
+
+Find similar questions.
+
+Similarity Threshold
+
+Default
+
+0.85
+
+Configurable
+
+Yes
+
+---
+
+## 7. Question Clustering
+
+AI groups similar questions.
+
+Example
+
+Original Questions
+
+"When will Annapurna money come?"
+
+"When will verified applicants receive payment?"
+
+"Annapurna টাকা কবে পাব?"
+
+↓
+
+Cluster
+
+Payment Release
+
+Question Count
+
+1,273
+
+---
+
+## 8. Department Detection
+
+AI maps questions to departments.
+
+Examples
+
+Road
+
+↓
+
+PWD
+
+Hospital
+
+↓
+
+Health
+
+School
+
+↓
+
+Education
+
+Recruitment
+
+↓
+
+PSC
+
+Water
+
+↓
+
+Public Health Engineering
+
+---
+
+## 9. Scheme Detection
+
+Examples
+
+Lakshmir Bhandar
+
+Annapurna
+
+Swasthya Sathi
+
+Kanyashree
+
+Rupashree
+
+Future
+
+Dynamic master table lookup
+
+---
+
+## 10. Canonical Question Generation
+
+Instead of showing thousands of questions.
+
+AI generates
+
+One representative question.
+
+Example
+
+Original
+
+250 Similar Questions
+
+↓
+
+Canonical
+
+"When will verified Annapurna beneficiaries receive payment?"
+
+---
+
+## 11. Trend Analysis
+
+Compare
+
+Previous Period
+
+↓
+
+Current Period
+
+Output
+
+Increasing
+
+Stable
+
+Decreasing
+
+---
+
+## 12. AI Executive Summary
+
+Example
+
+"This week, Annapurna Scheme payment queries increased by 24%, particularly from Birbhum and Murshidabad districts. Most citizens are seeking clarification regarding payment timelines and document verification."
+
+---
+
+# 5. AI Models
+
+Primary LLM
+
+* OpenAI GPT
+
+Secondary
+
+* Gemini
+
+Fallback
+
+* OpenRouter
+
+Embeddings
+
+* text-embedding-3-large
+
+Future
+
+* BGE-M3
+
+---
+
+# 6. AI Queue
+
+All processing is asynchronous.
+
+```text
+Question Submitted
+
+↓
+
+Redis Queue
+
+↓
+
+Celery Worker
+
+↓
+
+AI Processing
+
+↓
+
+Database Update
+
+↓
+
+Dashboard Refresh
+```
+
+Citizen never waits for AI processing.
+
+---
+
+# 7. Prompt Strategy
+
+The AI receives:
+
+* Original Question
+* Normalized Question
+* Language
+* Location Metadata
+
+The AI must never receive:
+
+* Secrets
+* API Keys
+* Database Credentials
+* Internal Logs
+
+---
+
+# 8. Confidence Scores
+
+Every AI output contains a confidence score.
+
+Examples
+
+Language Detection
+
+97%
+
+Department Detection
+
+94%
+
+Cluster Match
+
+92%
+
+Canonical Question
+
+96%
+
+Confidence below the configured threshold is flagged for manual review.
+
+---
+
+# 9. Human Review
+
+Admins may:
+
+* View AI cluster
+* Merge clusters
+* Split clusters
+* Edit canonical question
+* Approve AI summary
+* Reject AI output
+
+All manual changes are audit logged.
+
+---
+
+# 10. AI Reports
+
+Every report contains
+
+* Executive Summary
+* Top Questions
+* Top Departments
+* Top Schemes
+* District Distribution
+* Trend Analysis
+* Question Frequency
+* AI Insights
+
+Formats
+
+* PDF
+* Excel
+
+---
+
+# 11. AI Analytics
+
+Dashboard Metrics
+
+* Total Questions Processed
+* Processing Queue
+* Average Processing Time
+* Cluster Count
+* AI Confidence
+* Failed Jobs
+* Top Trends
+
+---
+
+# 12. AI Failure Handling
+
+If AI processing fails
+
+* Retry automatically (3 attempts)
+* Log failure
+* Notify administrator if repeated
+* Preserve original question
+* Allow manual reprocessing
+
+---
+
+# 13. AI Configuration
+
+Configurable
+
+* Similarity Threshold
+* Supported Languages
+* Active AI Provider
+* Maximum Tokens
+* Temperature
+* Retry Count
+* Queue Size
+
+Accessible only by Super Admin.
+
+---
+
+# 14. AI Security
+
+Never expose:
+
+* Prompt templates
+* System prompts
+* Internal reasoning
+* API keys
+
+Prompt Injection Protection
+
+* Strip HTML
+* Remove scripts
+* Ignore instruction-like user input
+* Treat all submissions as plain text
+
+---
+
+# 15. AI Performance Targets
+
+| Metric               | Target  |
+| -------------------- | ------- |
+| Language Detection   | <1 sec  |
+| Embedding Generation | <2 sec  |
+| Clustering           | <5 sec  |
+| Complete Processing  | <10 sec |
+| Queue Success Rate   | >99%    |
+| AI Accuracy Target   | >95%    |
+
+---
+
+# 16. Future AI Roadmap
+
+Version 2
+
+* Hindi Support
+* Sentiment Analysis
+* Automatic FAQ Generation
+* Trend Prediction
+* District Heatmaps
+* Department-specific AI Summaries
+* Voice Question Processing
+* Public Information Gap Detection
+
+Version 3
+
+* AI-powered Government Briefings
+* Predictive Governance Analytics
+* Real-time Trend Detection
+* AI Chat Assistant for Officials
+* Recommendation Engine
+
+---
+
+# 17. AI Summary
+
+The AI Engine is designed to convert large volumes of multilingual citizen questions into structured intelligence through language detection, normalization, semantic clustering, department mapping, scheme recognition, trend analysis, and executive summaries. It operates asynchronously, preserves original submissions, supports human review, and provides reliable, scalable insights that help government officials understand public information needs without replacing existing grievance or support systems.

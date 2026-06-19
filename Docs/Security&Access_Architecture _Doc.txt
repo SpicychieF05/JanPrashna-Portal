@@ -1,0 +1,496 @@
+# SECURITY & ACCESS ARCHITECTURE DOCUMENT
+
+**Project:** JanPrashna Portal
+
+**Version:** 1.0
+
+**Architecture:** Zero Trust Security
+
+---
+
+# 1. Security Goals
+
+* Protect citizen data
+* Secure administrator access
+* Prevent spam and abuse
+* Secure AI processing
+* Maintain complete audit trails
+* Encrypt sensitive data
+* Follow security best practices
+
+---
+
+# 2. Security Principles
+
+* Zero Trust Architecture
+* Least Privilege Access
+* Role-Based Access Control (RBAC)
+* Secure by Default
+* Defense in Depth
+* Privacy by Design
+
+---
+
+# 3. User Roles
+
+### Public Citizen
+
+Permissions
+
+* Submit question
+* Read public pages
+
+Restrictions
+
+* No login
+* No dashboard
+* No reports
+
+---
+
+### Super Admin
+
+Permissions
+
+* Full platform access
+* Manage administrators
+* Manage reports
+* Configure AI
+* Configure email schedules
+* View audit logs
+* System settings
+
+---
+
+### Department Admin
+
+Permissions
+
+* Dashboard
+* Analytics
+* Reports
+* AI Clusters
+* Email schedules
+
+Restrictions
+
+* Cannot manage users
+* Cannot change global settings
+
+---
+
+### Report Viewer
+
+Permissions
+
+* View reports
+* Download reports
+
+Restrictions
+
+* Read-only access
+
+---
+
+### Auditor
+
+Permissions
+
+* View audit logs
+* View reports
+* View analytics
+
+Restrictions
+
+* No data modification
+
+---
+
+# 4. Authentication
+
+Admin Login
+
+* Email
+* Password
+
+Future
+
+* MFA (Version 2)
+
+Authentication Method
+
+* JWT Access Token
+* Refresh Token
+
+Token Expiry
+
+Access Token
+
+15 Minutes
+
+Refresh Token
+
+7 Days
+
+Passwords
+
+* Argon2id hashing (preferred)
+* BCrypt (acceptable alternative)
+
+---
+
+# 5. Authorization
+
+Role-Based Access Control (RBAC)
+
+Every protected API checks:
+
+* Authentication
+* Role
+* Permission
+* Resource ownership (if applicable)
+
+---
+
+# 6. API Security
+
+Public APIs
+
+* HTTPS only
+* Input validation
+* Rate limiting
+* Spam detection
+
+Admin APIs
+
+* JWT required
+* Permission validation
+* Audit logging
+* CSRF protection (if cookies are used)
+
+---
+
+# 7. Rate Limiting
+
+Citizen Question Submission
+
+* 5 submissions / 10 minutes / IP
+
+Admin Login
+
+* 5 attempts / 15 minutes
+
+Dashboard APIs
+
+* 120 requests / minute
+
+AI APIs
+
+* 10 requests / minute
+
+---
+
+# 8. Data Protection
+
+Encrypt In Transit
+
+* HTTPS (TLS 1.3)
+
+Encrypt At Rest
+
+* PostgreSQL disk encryption
+* Backup encryption
+
+Never Store
+
+* Plain text passwords
+* API keys
+* JWT secrets
+
+---
+
+# 9. Sensitive Information
+
+Store
+
+* Question
+* District
+* Location hierarchy
+* Age
+* Occupation
+* Gender (Optional)
+
+Do NOT Store
+
+* Aadhaar Number
+* PAN
+* Bank Details
+* Voter ID
+* Driving License
+* Passport
+* Biometric Data
+
+IP addresses should be stored as hashed values only when required for abuse prevention.
+
+---
+
+# 10. Data Retention
+
+| Data         | Retention |
+| ------------ | --------- |
+| Raw Question | 90 Days   |
+| AI Clusters  | Permanent |
+| Reports      | Permanent |
+| Audit Logs   | 7 Years   |
+| Email Logs   | 1 Year    |
+| Sessions     | 24 Hours  |
+| Redis Cache  | 24 Hours  |
+
+Automatic cleanup jobs run daily.
+
+---
+
+# 11. AI Security
+
+Every submission passes through an AI moderation layer before clustering.
+
+Checks include:
+
+* Spam
+* Abusive language
+* Prompt injection attempts
+* Extremely long text
+* Duplicate submissions
+
+AI services should never receive secrets or database credentials in prompts.
+
+---
+
+# 12. Input Validation
+
+Backend validation is mandatory.
+
+Examples
+
+Question
+
+* Required
+* Maximum 500 characters
+
+Age
+
+* 18–120 (configurable)
+
+District
+
+* Must exist in master table
+
+Pincode
+
+* Must exist in master table
+
+Reject
+
+* HTML
+* JavaScript
+* SQL fragments
+* Excessive special characters
+
+---
+
+# 13. Audit Logging
+
+Log every administrator action.
+
+Examples
+
+* Login
+* Logout
+* Report Generation
+* User Creation
+* Settings Update
+* AI Reprocessing
+* Email Schedule Changes
+
+Log fields
+
+* User ID
+* Action
+* Resource
+* Timestamp
+* IP Hash
+* Request ID
+
+Audit logs are immutable.
+
+---
+
+# 14. Secrets Management
+
+Never commit secrets to Git.
+
+Use environment variables.
+
+Required
+
+DATABASE_URL
+
+REDIS_URL
+
+JWT_SECRET
+
+JWT_REFRESH_SECRET
+
+OPENAI_API_KEY
+
+GEMINI_API_KEY
+
+OPENROUTER_API_KEY
+
+RESEND_API_KEY
+
+SENTRY_DSN
+
+---
+
+# 15. Security Headers
+
+Enable
+
+* Strict-Transport-Security
+* X-Content-Type-Options
+* X-Frame-Options
+* Referrer-Policy
+* Content-Security-Policy
+* Permissions-Policy
+
+---
+
+# 16. CORS Policy
+
+Allow
+
+Citizen Portal URL
+
+Admin Dashboard URL
+
+Block all unknown origins.
+
+---
+
+# 17. File Security
+
+Version 1
+
+No public file uploads.
+
+Generated reports
+
+* PDF
+* Excel
+
+Access
+
+* Authorized administrators only
+
+---
+
+# 18. Session Management
+
+* Access Token: 15 Minutes
+* Refresh Token: 7 Days
+* Automatic token refresh
+* Logout invalidates refresh token
+
+---
+
+# 19. Backup Strategy
+
+Database
+
+* Daily Incremental Backup
+* Weekly Full Backup
+* Monthly Archive
+
+Restore testing
+
+Quarterly
+
+---
+
+# 20. Monitoring & Incident Response
+
+Monitor
+
+* Failed logins
+* Rate-limit violations
+* API errors
+* AI processing failures
+* Queue failures
+* Database health
+
+Tools
+
+* Sentry
+* Grafana
+* Prometheus
+* Loki
+
+---
+
+# 21. Security Checklist
+
+✓ HTTPS only
+
+✓ JWT Authentication
+
+✓ RBAC
+
+✓ Password Hashing
+
+✓ Input Validation
+
+✓ SQL Injection Protection (ORM)
+
+✓ XSS Protection
+
+✓ CSRF Protection (where applicable)
+
+✓ Rate Limiting
+
+✓ Audit Logging
+
+✓ Daily Backups
+
+✓ Automatic Data Deletion
+
+✓ Secret Management
+
+✓ AI Prompt Protection
+
+✓ Environment Variables
+
+✓ Security Headers
+
+✓ Immutable Audit Logs
+
+---
+
+# 22. Future Security Enhancements
+
+Version 2
+
+* Multi-Factor Authentication (MFA)
+* Single Sign-On (SSO)
+* Hardware Security Keys
+* IP Allowlisting
+* Admin Activity Alerts
+* AI Threat Detection
+* Web Application Firewall (WAF)
+* Disaster Recovery Site
+
+---
+
+# 23. Security Summary
+
+The JanPrashna Portal security architecture follows a Zero Trust model with strong authentication, role-based authorization, encrypted communication, secure secret management, comprehensive audit logging, and privacy-first data handling. The platform minimizes the collection of personally identifiable information while ensuring government-grade security for administrative functions and AI processing.

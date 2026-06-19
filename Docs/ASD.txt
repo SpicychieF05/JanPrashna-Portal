@@ -1,0 +1,333 @@
+API SPECIFICATION DOCUMENT (ASD)
+Project: JanPrashna Portal
+Version: 1.0
+
+============================================================
+1. API OVERVIEW
+============================================================
+
+Architecture
+- REST API
+- HTTPS
+- JSON
+- FastAPI Backend
+- Version: /api/v1
+
+Environment
+
+Development
+Citizen Portal
+http://localhost:3000
+
+Admin Dashboard
+http://localhost:3001
+
+Backend API
+http://localhost:8000/api/v1
+
+Preview
+Citizen Portal
+https://<project>.vercel.app
+
+Admin Dashboard
+https://<project>.vercel.app
+
+Backend
+https://<project>.up.railway.app/api/v1
+
+Production (MVP)
+
+Citizen Portal
+https://janprashna-portal.vercel.app
+
+Admin Dashboard
+https://janprashna-admin.vercel.app
+
+Backend API
+https://janprashna-api.up.railway.app/api/v1
+
+============================================================
+2. AUTHENTICATION
+============================================================
+
+Public APIs
+- No authentication
+
+Admin APIs
+- JWT Access Token
+- Refresh Token
+
+Header
+
+Authorization: Bearer <JWT>
+
+============================================================
+3. RESPONSE FORMAT
+============================================================
+
+Success
+
+{
+ success:true,
+ message:"",
+ data:{},
+ meta:{}
+}
+
+Error
+
+{
+ success:false,
+ error:{
+   code:"",
+   message:""
+ }
+}
+
+============================================================
+4. API MODULES
+============================================================
+
+/public
+/auth
+/admin
+/ai
+/system
+
+============================================================
+5. PUBLIC APIs
+============================================================
+
+GET    /public/districts
+GET    /public/subdivisions
+GET    /public/blocks
+GET    /public/panchayats
+GET    /public/municipalities
+GET    /public/wards
+GET    /public/police-stations
+
+POST   /public/questions
+
+============================================================
+6. AUTH APIs
+============================================================
+
+POST   /auth/login
+POST   /auth/refresh
+POST   /auth/logout
+GET    /auth/me
+
+============================================================
+7. ADMIN APIs
+============================================================
+
+Dashboard
+
+GET    /admin/dashboard
+
+Questions
+
+GET    /admin/questions
+GET    /admin/questions/{id}
+DELETE /admin/questions/{id}
+
+Reports
+
+GET    /admin/reports
+POST   /admin/reports/generate
+GET    /admin/reports/{id}
+
+Email
+
+GET    /admin/email-recipients
+POST   /admin/email-recipients
+PUT    /admin/email-recipients/{id}
+DELETE /admin/email-recipients/{id}
+
+Schedules
+
+GET    /admin/email-schedules
+POST   /admin/email-schedules
+
+Users
+
+GET    /admin/users
+POST   /admin/users
+PUT    /admin/users/{id}
+PATCH  /admin/users/{id}/disable
+
+Settings
+
+GET    /admin/settings
+PUT    /admin/settings
+
+Audit
+
+GET    /admin/audit-logs
+
+============================================================
+8. AI APIs
+============================================================
+
+GET    /ai/status
+GET    /ai/clusters
+GET    /ai/clusters/{id}
+POST   /ai/clusters/merge
+POST   /ai/clusters/split
+
+GET    /ai/summary
+
+POST   /ai/reprocess/{question_id}
+
+============================================================
+9. SYSTEM APIs
+============================================================
+
+GET    /system/health
+GET    /system/version
+
+============================================================
+10. PAGINATION
+============================================================
+
+?page=1
+&page_size=20
+
+Maximum
+
+100
+
+============================================================
+11. FILTERS
+============================================================
+
+district_id
+
+department_id
+
+scheme_id
+
+language
+
+status
+
+start_date
+
+end_date
+
+============================================================
+12. SORTING
+============================================================
+
+sort
+
+order
+
+Example
+
+?sort=created_at&order=desc
+
+============================================================
+13. RATE LIMITS
+============================================================
+
+Question Submission
+
+5 requests / 10 min / IP
+
+Login
+
+5 attempts / 15 min
+
+Dashboard
+
+120 requests / min
+
+AI
+
+10 requests / min
+
+============================================================
+14. HTTP STATUS
+============================================================
+
+200 OK
+
+201 Created
+
+202 Accepted
+
+204 No Content
+
+400 Bad Request
+
+401 Unauthorized
+
+403 Forbidden
+
+404 Not Found
+
+409 Conflict
+
+422 Validation Error
+
+429 Too Many Requests
+
+500 Server Error
+
+============================================================
+15. REQUEST HEADERS
+============================================================
+
+Content-Type
+
+Accept
+
+Authorization
+
+X-Request-ID
+
+Idempotency-Key
+
+============================================================
+16. ENVIRONMENT VARIABLES
+============================================================
+
+Frontend
+
+NEXT_PUBLIC_API_BASE_URL
+
+Backend
+
+DATABASE_URL
+
+REDIS_URL
+
+QDRANT_URL
+
+JWT_SECRET
+
+OPENAI_API_KEY
+
+GEMINI_API_KEY
+
+OPENROUTER_API_KEY
+
+RESEND_API_KEY
+
+============================================================
+17. API RULES
+============================================================
+
+- JSON only
+- HTTPS only
+- RESTful naming
+- JWT for admin endpoints
+- No permanent delete
+- Soft delete for citizen data
+- Versioned APIs
+- Validation before processing
+- Every response follows a standard envelope
+- All timestamps in UTC
+- UUID used for all primary keys
+

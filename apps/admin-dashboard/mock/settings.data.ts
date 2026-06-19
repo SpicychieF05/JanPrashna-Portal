@@ -1,0 +1,35 @@
+export const mockSettings = {
+  general: {
+    platform_name: 'JanPrashna Portal',
+    contact_email: 'support@janprashna.wb.gov.in',
+    timezone: 'Asia/Kolkata',
+    default_language: 'bengali',
+    max_question_length: 500,
+    data_retention_days: 90,
+  },
+  ai: {
+    embedding_provider: 'openai',
+    embedding_model: 'text-embedding-3-small',
+    clustering_threshold: 0.85,
+    auto_clustering_enabled: true,
+    min_cluster_size: 5,
+    llm_provider: 'gemini',
+    llm_model: 'gemini-1.5-flash',
+  },
+  email: {
+    provider: 'resend',
+    from_email: 'reports@janprashna.wb.gov.in',
+    from_name: 'JanPrashna Intelligence Platform',
+    default_frequency: 'weekly',
+    send_day: 'Monday',
+    send_time: '08:00',
+  },
+  reporting: {
+    default_report_type: 'weekly',
+    include_district_breakdown: true,
+    include_department_breakdown: true,
+    include_scheme_breakdown: true,
+    include_ai_summary: true,
+    max_clusters_per_report: 20,
+  },
+};

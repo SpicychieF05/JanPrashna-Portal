@@ -1,0 +1,468 @@
+UI/UX Functional Specification Document (FSD)
+AI-Powered Citizen Question Intelligence Platform
+Government of West Bengal (Proposed)
+
+Version: 1.0
+
+Document Owner: Product & Design Team
+
+Status: Draft
+
+Target Platform
+
+Web Application (Responsive)
+Mobile First priority 
+Tablet
+Desktop
+
+Table of Contents -
+
+Introduction
+Design Vision
+Product Experience Principles
+Visual Identity
+Brand Guidelines
+Color System
+Typography
+Iconography
+Illustration Style
+Layout System
+Responsive Design
+Information Architecture
+Navigation Architecture
+User Flows
+Citizen Portal
+Admin Dashboard
+Component Library
+Motion System
+Accessibility
+Frontend Technical Guidelines
+Design Tokens
+Acceptance Criteria
+Future Enhancements
+1. Introduction
+Purpose
+
+This document defines the complete User Experience, User Interface, Design System, Interaction Patterns, Visual Identity, Accessibility Standards and Frontend Architecture guidelines for the AI-Powered Citizen Question Intelligence Platform.
+
+It acts as the single source of truth for:
+
+UI Designers
+UX Designers
+Frontend Developers
+AI-assisted Code Generation Tools
+QA Engineers
+Product Managers
+Objective
+
+Design a platform that enables any citizen of West Bengal to easily submit governance-related questions while providing government officials with an AI-powered analytics dashboard that transforms thousands of questions into meaningful insights.
+
+The platform should feel:
+
+Trustworthy
+Modern
+Premium
+Government-grade
+Editorial
+Simple
+Accessible
+Scope
+
+The document covers
+
+Citizen Portal
+
+Admin Dashboard
+
+Design System
+
+Component Library
+
+Motion
+
+Responsive Behaviour
+
+Accessibility
+
+Frontend Architecture
+
+2. Design Vision
+Core Philosophy
+
+Government websites traditionally suffer from
+
+Too many colors
+Heavy layouts
+Small typography
+Long forms
+Poor responsiveness
+Outdated aesthetics
+
+This platform deliberately avoids those patterns.
+
+Instead it follows
+
+Editorial Government Intelligence
+
+Imagine
+
+Government Report
+
+Apple Simplicity
+
+Notion Cleanliness
+
+Stripe Polish
+
+The inspiration website's warm editorial feel.
+
+Design Keywords
+
+Modern
+
+Editorial
+
+Warm
+
+Minimal
+
+Calm
+
+Accessible
+
+Premium
+
+Transparent
+
+AI-first
+
+Government Intelligence
+
+User Experience Goals
+
+Citizen should
+
+understand the website within 5 seconds
+complete submission within 2 minutes
+never feel overwhelmed
+
+Officials should
+
+understand statewide trends within 30 seconds
+locate reports within 15 seconds
+generate reports within one click
+3. Product Experience Principles
+Principle 1
+
+Citizen First
+
+Every screen should reduce friction.
+
+Principle 2
+
+AI Should Simplify
+
+Never expose technical AI complexity.
+
+Show only meaningful insights.
+
+Principle 3
+
+Trust Before Beauty
+
+Users must trust the platform before admiring it.
+
+Principle 4
+
+Whitespace is a Feature
+
+Avoid visual clutter.
+
+Every screen should breathe.
+
+Principle 5
+
+Accessibility by Default
+
+Every interaction must support
+
+Keyboard
+
+Screen Readers
+
+Contrast
+
+Focus
+
+Large touch targets
+
+4. Visual Identity
+
+The platform should feel like
+
+Government Intelligence Platform
+
+NOT
+
+Corporate SaaS
+
+NOT
+
+Political Campaign
+
+NOT
+
+News Website
+
+NOT
+
+Complaint Portal
+
+Personality
+
+Warm
+
+Professional
+
+Trustworthy
+
+Modern
+
+Data-driven
+
+Elegant
+
+Minimal
+
+5. Brand Guidelines
+Logo Placement
+
+Top Left
+
+Always visible
+
+Clickable
+
+Header Height
+
+72 px
+
+Border Radius
+
+Large rounded corners
+
+No sharp interfaces
+
+Shadows
+
+Minimal
+
+Soft
+
+Almost invisible
+
+Cards
+
+White
+
+Thin border
+
+No heavy elevation
+
+6. Color System
+
+This is one of the defining aspects of the platform.
+
+The interface should feel warm, welcoming, and government-grade. Inspired by the editorial palette you provided, Warm Off White and Saffron become the visual identity, with saffron used as a restrained accent throughout the product.
+
+Primary Background
+
+Warm Off White
+
+#FDFAF5
+
+Coverage
+
+Approximately 75%
+
+Used for
+
+Website background
+Dashboard background
+Hero section
+Forms
+Reports
+Empty states
+Secondary Surface
+
+Paper Warm
+
+#F7F0E4
+
+Coverage
+
+Approximately 10%
+
+Used for
+
+Alternate sections
+Filters
+Cards
+Tables
+Side panels
+Brand Accent
+
+Saffron
+
+#E8620A
+
+Coverage
+
+Approximately 15%
+
+Used for
+
+Primary Buttons
+Navigation Active State
+Progress Bars
+Links
+AI Highlights
+KPI Icons
+Statistics
+Active Tabs
+Wizard Progress
+Search Focus
+Card Accent Lines
+Selected Filters
+Report Headers
+Saffron Usage Rule
+
+Saffron should appear throughout the interface as a subtle, consistent accent rather than as a dominant background color. It should naturally guide attention to important actions and information without overwhelming the user.
+
+Typography Colors
+
+Primary
+
+#1A1208
+
+Secondary
+
+#4A3020
+
+Muted
+
+#796556
+Semantic Colors
+
+Success
+
+#16A34A
+
+Warning
+
+#D97706
+
+Error
+
+#DC2626
+
+Information
+
+#2563EB
+Color Ratios
+
+Warm Off White → 75%
+
+Paper Warm → 10%
+
+White Cards → 8%
+
+Typography → 5%
+
+Saffron Accent → 2%
+
+This balance keeps the interface calm while ensuring every page carries a recognizable saffron identity.
+
+Saffron Design Language
+
+The saffron accent should be visible in nearly every screen through small but intentional details:
+
+Active navigation underline
+Primary call-to-action buttons
+Wizard step indicators
+Focus outlines
+Hyperlinks
+Icons for important actions
+AI insight badges
+Left accent border on AI cards
+Hover states
+Selected chips
+Chart highlight series
+Notification badges
+Report cover strip
+Pagination active state
+
+Avoid using saffron for large page backgrounds, dense text blocks, or oversized decorative sections.
+
+7. Typography
+Display
+
+Playfair Display
+
+Used for
+
+Hero
+
+Section Titles
+
+Landing Page
+
+Dashboard Heading
+
+Reading
+
+Crimson Pro
+
+Used for
+
+Paragraphs
+
+Reports
+
+Descriptions
+
+AI Summaries
+
+UI
+
+Outfit
+
+Used for
+
+Buttons
+
+Inputs
+
+Navigation
+
+Sidebar
+
+Tables
+
+Labels
+
+Data
+
+Space Mono
+
+Used for
+
+Numbers
+
+AI Confidence
+
+IDs
+
+Metadata
+
+Statistics
